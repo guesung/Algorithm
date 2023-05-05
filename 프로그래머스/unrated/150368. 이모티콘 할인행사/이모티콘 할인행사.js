@@ -6,7 +6,6 @@ const rates = {
 }
 
 function solution(users, emoticons) {
-
     const arr = [];
     let [maxUser,maxPrice] = [0,0];
     
