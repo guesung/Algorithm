@@ -2,6 +2,7 @@ const  calculateTime = (inTime,outTime) => {
     inTime = inTime.split(':')
     outTime = outTime.split(':')
     
+    
     let hour = +outTime[0]-(+inTime[0]);
     let minute = +outTime[1]-(+inTime[1]);
     
