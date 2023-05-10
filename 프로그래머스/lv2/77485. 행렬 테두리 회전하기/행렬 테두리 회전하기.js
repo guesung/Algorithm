@@ -8,6 +8,7 @@ function solution(rows, columns, queries) {
             arr[i][j] = i*columns+j+1
         }
     }
+    
 //     회전을 시켜야 함
 //           시계방향으로
 //           2,2,5,4라면-> 2,2|2,3|2,4|
