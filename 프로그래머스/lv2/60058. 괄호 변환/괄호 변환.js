@@ -17,6 +17,7 @@ function solution(p) {
             }
         }else{
             st.push(p[i])
+            
         }
         // console.log(st.filter(it=>it===')').length , st.filter(it=>it==='(').length)
 //             균형잡힌 괄호 문자열이라면
