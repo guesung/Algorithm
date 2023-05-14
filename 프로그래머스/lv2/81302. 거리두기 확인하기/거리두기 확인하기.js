@@ -17,6 +17,7 @@ function solution(places) {
             const [goY,goX] = [y+item[0],x+item[1]];
             if(goY>=5 || goX>=5 || goY<0 || goX<0) continue;
             
+            
             const [middleY,middleX] = [y+item[0]/2,x+item[1]/2]
             
             if(arr[goY][goX]==='P' && arr[middleY][middleX]==='O') return false;
