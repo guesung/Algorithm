@@ -11,6 +11,7 @@ function solution(m, n, board) {
             }
         }
         
+        
         return true;
     }
     let arr = []
