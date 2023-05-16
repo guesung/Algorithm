@@ -20,6 +20,7 @@ function solution(m, musicinfos) {
                 infoArr.push(info[i])
                 continue;
             }
+            
             if(info[i+1]==='#') {
                 infoArr.push(info[i]+'#')
                 i++;
