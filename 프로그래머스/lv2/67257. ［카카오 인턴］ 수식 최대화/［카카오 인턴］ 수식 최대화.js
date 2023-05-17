@@ -19,6 +19,8 @@ function solution(expression) {
         return numArr[0]
     }
     
+    
+    
     const express = ['+','-','*']
     const calculate = (numArr,exArr, item) => {
         item.forEach(it=>{
