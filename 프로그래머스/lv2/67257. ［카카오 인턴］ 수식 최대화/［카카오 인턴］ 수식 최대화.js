@@ -1,9 +1,6 @@
 function solution(expression) {
     var answer = 0;
     
-//     6가지 경우의 수
-//     절대값이 가장 큰 경우는?
-    
     const calculateIt = (a,b,expression) => {
         [a,b] = [+a,+b]
         if(expression==='*') return a*b;
