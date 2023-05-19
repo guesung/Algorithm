@@ -19,6 +19,7 @@ function solution(users, emoticons) {
             })
             if(maxUser<sumUser) {
                 maxUser=sumUser
+                
                 maxPrice=sumPrice
             }else if(maxUser===sumUser && maxPrice<sumPrice){
                 maxPrice=sumPrice
