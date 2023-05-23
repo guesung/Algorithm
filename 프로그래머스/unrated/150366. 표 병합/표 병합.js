@@ -10,6 +10,7 @@ function solution(commands) {
         .fill()
         .map((_, j) => [i, j])
     );
+    
     console.log(cell,parent)
   for (const commandStr of commands) {
     const [command, ...rest] = commandStr.split(' ');
