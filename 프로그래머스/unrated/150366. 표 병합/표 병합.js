@@ -15,6 +15,7 @@ function solution(commands) {
   for (const commandStr of commands) {
     const [command, ...rest] = commandStr.split(' ');
 
+      
     switch (command) {
       case 'UPDATE':
         if (rest.length === 3) update(rest);
