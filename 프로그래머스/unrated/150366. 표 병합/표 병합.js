@@ -14,7 +14,6 @@ function solution(commands) {
     console.log(cell,parent)
   for (const commandStr of commands) {
     const [command, ...rest] = commandStr.split(' ');
-
       
       
     switch (command) {
