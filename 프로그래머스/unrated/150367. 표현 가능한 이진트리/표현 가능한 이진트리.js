@@ -14,6 +14,7 @@ function solution(numbers) {
     }
     
     
+    
     function isTree ([b_str, start, end]) {
         //부모 노드 idx
         const mid = Math.floor((start+end) / 2);
