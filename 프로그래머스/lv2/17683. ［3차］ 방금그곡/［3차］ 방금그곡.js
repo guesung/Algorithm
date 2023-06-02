@@ -15,6 +15,7 @@ function solution(m, musicinfos) {
         const [startTime,endTime,title,info] = musicinfo.split(',');
         const infoArr = [];
 //         1. info의 길이 구하기 -> 걍 length하면 안됨 (예외 : C#,D#,F#,G#,A#)
+        
         for(let i=0;i<info.length;i++){
             if(i===info.length-1) {
                 infoArr.push(info[i])
