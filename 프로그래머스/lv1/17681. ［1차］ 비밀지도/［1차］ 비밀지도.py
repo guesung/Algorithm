@@ -4,6 +4,8 @@ def sol(n,arr,total_lst):
         num = arr[i]
         a=n-1
         lst=list()
+        
+        
         while True:
             if num==0:
                 break
