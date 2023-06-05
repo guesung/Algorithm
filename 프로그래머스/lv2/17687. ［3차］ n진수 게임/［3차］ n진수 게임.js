@@ -15,5 +15,6 @@ function solution(n, t, m, p) {
     // console.log(word)
     
     
+    
     return answer.slice(0,t);
 }
