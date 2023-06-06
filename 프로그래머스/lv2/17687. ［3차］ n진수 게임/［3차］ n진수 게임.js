@@ -7,6 +7,7 @@ function solution(n, t, m, p) {
         word+=i.toString(n).toUpperCase();
     }
     
+    
 //     인원(m)은 사이클을 결정, 순서(p)는 순서를 결정
     for(let i=0;i<word.length;i++){
         // console.log(word[i])
