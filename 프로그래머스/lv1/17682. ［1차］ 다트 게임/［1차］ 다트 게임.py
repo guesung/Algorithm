@@ -18,4 +18,5 @@ def solution(dartResult):
         else:
             answer.append(int(j))
             i += 1
+            
     return sum(answer)
