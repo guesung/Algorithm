@@ -17,5 +17,6 @@ function solution(n, t, m, p) {
     
     
     
+    
     return answer.slice(0,t);
 }
