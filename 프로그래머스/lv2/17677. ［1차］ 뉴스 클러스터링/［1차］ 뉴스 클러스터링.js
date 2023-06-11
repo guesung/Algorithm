@@ -10,6 +10,7 @@ function solution(str1, str2) {
             arr1.push(str1.slice(i,i+2));    
         }
     }
+    
     for(let i=0;i<str2.length-1;i++){
         if(regex.test(str2.slice(i,i+2))){
             arr2.push(str2.slice(i,i+2));    
