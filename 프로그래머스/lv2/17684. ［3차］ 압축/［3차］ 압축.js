@@ -9,6 +9,7 @@ const solution = (msg) => {
     };
   
     
+    
     let idx = 0;
     while (idx < msg.length) {
         let nowWord = '';
