@@ -11,6 +11,7 @@ def solution(dartResult):
             answer[i] = answer[i] ** (sdt.index(j)+1)
         elif j == '*':
             answer[i] = answer[i] * 2
+            
             if i != 0 :
                 answer[i - 1] = answer[i - 1] * 2
         elif j == '#':
