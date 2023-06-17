@@ -17,6 +17,7 @@ def sol(n,arr,total_lst):
         for j in lst:
             total_lst[i][n-1-j]=1
             
+            
 
 def solution(n, arr1, arr2):
     total_lst = [[0 for col in range(n)] for row in range(n)]
