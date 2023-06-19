@@ -1,61 +1,56 @@
-const isOverdue = (today,validateDate) => {
+const datePlus = (startDate,period) => {
+//     월 +1
+    let [year,month,date] = startDate.split('.').map(v=>+v);
     
-     
-    today=today.split('.').map(it=>+it);
-    validateDate=validateDate.split('.').map(it=>+it);
+    month+= +period;
     
-    if(today[0]>validateDate[0]) return true;
-    if(today[0]===validateDate[0] && today[1]>validateDate[1]) return true;
-    if(today[0]===validateDate[0] && today[1]===validateDate[1] && today[2]>validateDate[2]) return true;
-    return false;
     
-//     1. 연도 비교
-//     2. 월 비교
-//     3. 일 비교
+    year += (parseInt(month/12));
+    month = month % 12;
     
-}
-
-
-
-const monthPlus = (date,month) => {
-    date = date.split('.').map(it=>+it);
-    date[1]+=month    
-  while (date[1] > 12) {
-    date[0]++;
-    date[1] -= 12;
-  }
-    // if(date[1]%12===0)date[1]=12;    
-    
-    if(date[2]===1){
-        date[2]=28;
-        if(date[1]===1){
-            date[1]=12;
-            date[0]--;
-        }else{
-            date[1]--;   
-        }
-    }else{
-        date[2]--;    
+    date --;
+    if(date===0){
+        date=28;
+        month--;
     }
     
-    return date.join('.');
+    if(month===0){
+        year--;
+        month=12;
+    }
+    
+    return {year,month,date};
+}
+
+const compareDate = (expiration,today) => {
+    if(today.year>expiration.year) return 'expired';
+    if(today.year===expiration.year && today.month>expiration.month) return 'expired';
+    if(today.year===expiration.year && today.month===expiration.month && today.date>expiration.date) return 'expired';
+    return 'notExpired'
+    
 }
 
 function solution(today, terms, privacies) {
-    // 1. 유효 날짜 구하기 = 수집 일자 + 유효 기간
-//     2. 오늘 날짜가 유효 날짜 전 -> 파기 X, 후 -> 파기 O => 파기 O만 cnt ++;
+    var answer = [];
+//     1. 유효기간 구하기
+//     2. 유효기간 < today인지 구하기
     
-    terms = terms.map(term=>term.split(' '));
-    privacies = privacies.map(privacy=>privacy.split(' '));
+    const timesType={};
+    terms.forEach((term)=>{
+        term = term.split(' ')
+        timesType[term[0]] = term[1]
+    });
     
-    let arr = [];
-    privacies.forEach((privacy,index)=>{
-        const thisTerm = terms.find(term => term[0]===privacy[1]);
-        const validateDate = monthPlus(privacy[0],+thisTerm[1]);
-        
-        if(isOverdue(today,validateDate)) arr.push(index+1);
-        
+    const [year,month,date] = today.split('.').map(v=>+v)
+    today = {year,month,date}
+    
+    privacies = privacies.map((privacy,index)=>{
+        const [startDate,type] = privacy.split(' ');
+        const expiration = datePlus(startDate,timesType[type])
+        if (compareDate(expiration,today)==='expired'){
+            answer.push(index+1)
+        }
     })
     
-    return arr;
+    return answer;
 }
