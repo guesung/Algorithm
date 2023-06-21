@@ -6,6 +6,7 @@ def sol(n,arr,total_lst):
         lst=list()
         
         
+        
         while True:
             if num==0:
                 break
