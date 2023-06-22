@@ -11,6 +11,7 @@ function solution(m, musicinfos) {
         
         return endMinutes-startMinutes;
     }
+    
     musicinfos.forEach(musicinfo=>{
         const [startTime,endTime,title,info] = musicinfo.split(',');
         const infoArr = [];
