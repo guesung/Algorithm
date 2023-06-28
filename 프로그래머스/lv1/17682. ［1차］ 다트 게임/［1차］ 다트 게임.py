@@ -21,4 +21,5 @@ def solution(dartResult):
             answer.append(int(j))
             i += 1
             
+            
     return sum(answer)
