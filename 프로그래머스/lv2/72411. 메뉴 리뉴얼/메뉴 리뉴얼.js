@@ -19,6 +19,7 @@ function solution(orders, course) {
 //         i=0이 아닌 start부터 시작함으로써 중복된 값 들어가지 않고 순차적으로 들어감
 //         foods+arr[i]를 넘김으로써 문자열에 계속 합해 나감
             createSet(arr,i+1,len-1,foods+arr[i]);
+            
         }
     }
     
