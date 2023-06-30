@@ -12,6 +12,7 @@ function solution(p) {
                     return answer;
                 }
                 
+                
             }else{
                 st.push(p[i])
             }
