@@ -6,12 +6,14 @@ function solution(new_id) {
     const regex = /[a-z]|[\d]|[-]|[_]|[.]/;
     id = id.split('').filter((it)=>regex.test(it))
 //     3. 2번 이상 연속 ..를 .로 치환
+    
     for (let i =0; i<id.length;i++){
         if(id[i]==='.' && id[i+1]==='.'){
             id.splice(i,1)  
             i--;
         }
     }
+    
 //     4. 처음이나 끝에 .라면 제거
     if(id[0]==='.'){
         id.shift();
