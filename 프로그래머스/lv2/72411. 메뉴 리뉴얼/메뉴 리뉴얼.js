@@ -13,6 +13,7 @@ function solution(orders, course) {
             return;
         }
         
+        
 //         arr,visited를 사용하지 않고 이런 dfs문이 가능하네.
 //         i=start부터 시작하고, i+1을 start값으로 넘겨줌
         for(let i=start;i<arr.length;i++){
