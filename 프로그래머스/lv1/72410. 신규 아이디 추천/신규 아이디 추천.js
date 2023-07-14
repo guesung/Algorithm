@@ -15,6 +15,7 @@ function solution(new_id) {
     }
     
 //     4. 처음이나 끝에 .라면 제거
+    
     if(id[0]==='.'){
         id.shift();
     }
