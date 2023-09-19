@@ -1,22 +1,23 @@
 function solution(s) {
-    let stack = [];
-    let count = 0;
+    var answer = 0;
     
-    [...s].forEach((str, index) => {
-        stack.push(str);
+    let x = '';
+    let xCount = 0;
+    let otherCount = 0;
+    [...s].forEach(it=>{
+        if(!x) x = it;
+        if(x === it) xCount ++;
+        else otherCount ++;
         
-        const same = stack.filter((item) => item === stack[0]);
-        const notSame = stack.filter((item) => item !== stack[0]);
-        
-        if(same.length === notSame.length){
-            count += 1;
-            stack = [];
+        if(xCount === otherCount && x!==it){
+            answer ++;
+            xCount=0;
+            otherCount=0;
+            x=''
         }
+
     })
+    if(x) answer ++ 
     
-    if(stack.length !== 0){
-        count += 1;
-    }
-    
-    return count;
+    return answer;
 }
