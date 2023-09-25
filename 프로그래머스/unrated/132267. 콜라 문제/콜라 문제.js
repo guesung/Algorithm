@@ -7,8 +7,7 @@ function solution(a, b, n) {
         totalGetCount += getCount;
         
         leftCount = getCount + leftCount - getCount * a / b
-//         getCount : 얻은 것의 개수
-//         leftCount - getCount * a : 원래 있던 것의 개수
+
     }
     
     
