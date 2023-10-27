@@ -1,19 +1,14 @@
-const pickList = ['diamond','iron','stone']
-const getCount = (array,item) => array.filter(it => it === item).length
-const calculatePickMineral = (pick,mineral)=>{
-    if(pick==='diamond'){
-        return 1;
-    }
-    if(pick==='iron'){
-        if(mineral === 'diamond') return 5;
-        return 1;
-    }
-    if(pick==='stone'){
-        if(mineral === 'diamond') return 25;
-        if(mineral === 'iron') return 5;
-        return 1;
-    }
+const PICK_LIST = ['diamond', 'iron', 'stone'];
+const getCountOfItem = (array,item) => array.filter(it => it === item).length
+const MINERAL_RATIOS = {
+  'diamond': {'diamond': 1, 'iron' : 1, 'stone' : 1},
+  'iron': {'diamond': 5, 'iron': 1, 'stone': 1},
+  'stone': {'diamond': 25, 'iron': 5, 'stone': 1}
+};
+const calculatePickMineral = (pick, mineral, count) => {
+  return MINERAL_RATIOS[pick][mineral] * count;
 }
+
 function solution(picks, minerals) {
     var answer = 0;
     
@@ -30,9 +25,9 @@ function solution(picks, minerals) {
 //     1. diamond,iron,stone 별로 개수 세기
     const countMinerals = dividedMinerals.map(minerals => {
         return {
-            diamond:getCount(minerals,'diamond'),
-            iron:getCount(minerals,'iron'),
-            stone:getCount(minerals,'stone'),
+            diamond:getCountOfItem(minerals,'diamond'),
+            iron:getCountOfItem(minerals,'iron'),
+            stone:getCountOfItem(minerals,'stone'),
         }        
     })
 //     2. diamond,iron,stone 순으로 정렬
@@ -49,25 +44,23 @@ function solution(picks, minerals) {
     const pickStore = [];
     for(let i=0;i<3;i++){
         while(picks[i]--){
-            const currentPick = pickList[i];
+            const currentPick = PICK_LIST[i];
             pickStore.push(currentPick)
         }
     }
-    let sum = 0;    
-    for(let index=0;index<sortedMinerals.length;index++){
-        const currentPick = pickStore[index];
-        const currentMinerals = sortedMinerals[index];
+    const pickStore2 = PICK_LIST.flatMap((pick, index) => {
+        if(picks[index]>0)Array(picks[index]).fill(pick)})
+                                         
+                                        
         
+
+    console.log(pickStore2)
+                                     
+    const fatigueSum = sortedMinerals.reduce((prevSum,currentMinerals,index) => {
+        const currentPick = pickStore[index];
         const {diamond:currentDiamondCount,iron:currentIronCount,stone:currentStoneCount} = currentMinerals 
-        for(let i=0;i<currentDiamondCount;i++){
-            sum += calculatePickMineral(currentPick,'diamond');            
-        }
-        for(let i=0;i<currentIronCount;i++){
-            sum += calculatePickMineral(currentPick,'iron');            
-        }
-        for(let i=0;i<currentStoneCount;i++){
-            sum += calculatePickMineral(currentPick,'stone');            
-        }
-    }
-    return sum;
+        return prevSum + calculatePickMineral(currentPick,'diamond',currentDiamondCount) + calculatePickMineral(currentPick,'iron',currentIronCount) + calculatePickMineral(currentPick,'stone',currentStoneCount)
+    },0)
+    
+    return fatigueSum;
 }
