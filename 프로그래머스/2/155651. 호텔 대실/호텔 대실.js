@@ -1,43 +1,36 @@
-const formatTime = (time) => {
-    const [hour,minute] = time.split(':').map(it => +it)
-    return hour*60 + minute
-}
-const isBetween = ([startTime,endTime],nowTime) => startTime<nowTime && nowTime<=endTime
-const plusTime = (nowTime, plusTime) => {
-    const {hour,minute} = nowTime
-    let afterPlusTimeMinute = minute + plusTime;
-    if(afterPlusTimeMinute>60){
-        afterPlusTimeMinute -= 60;
-        hour ++;
-    }
-    return {hour,minute:afterPlusTimeMinute}
-}
+// 10분청소 후 다음 사용가능
+// 필요한 최소객실수는?
+// 분으로 변환
+// 시작시각 오름차순
+// 각 방마다 입실 가능한 시각을 저장하는 배열 (오름차순)
+
 function solution(book_time) {
-    var answer = 0;
-//     방을 최소 몇개 사용할 수 있느냐
-//     퇴실 후 10분간 청소해야 한다. 즉, 10분 더 소모한다.
-//     1. 시간:분 > 분으로 단위 통일
-//     2. 퇴실 시간 > 10분 plus하기
-//     3. 
-    const formattedBookTime = book_time.map(([startTime,endTime])=>[formatTime(startTime),formatTime(endTime)])
-    const plusTenMinuteBookTime = formattedBookTime.map(time => [
-        time[0], time[1] + 10
-    ])
-    plusTenMinuteBookTime.sort((a,b) => a[0]-b[0])
-    console.log(plusTenMinuteBookTime)
-    
-//     배열을 순회하며, 현재 범위가 곂치는게 있는지 -> 없다면 해당 배열에 추가
-//     오름차순 정렬
-//     "문제의 핵심 : 동일 시간대에 몇개의 곂치는 시간이 있느냐"
-    // 0부터 1440까지 순회하며, 현재 요소가 배열에 몇개 사이에 있는지 체크 -> 
-    let maxCnt = 0;
-    for(let i=0;i<1440;i++){ // 00:00부터 23:50까지
-        const betweenTimeCnt = plusTenMinuteBookTime.filter(time => isBetween(time,i)).length;
-        maxCnt = Math.max(maxCnt,betweenTimeCnt);
+  var answer = 0;
+  const bookArr = book_time
+    .map((book) => {
+      const convertToNum = book.map((b) => {
+        const [h, m] = b.split(":");
+        return Number(h) * 60 + Number(m);
+      });
+      return { start: convertToNum[0], end: convertToNum[1] };
+    })
+    .sort((a, b) => a.start - b.start);
+
+  const canEnterTimes = [bookArr[0].end + 10]; // 각 방마다 입실가능한 시각
+  answer++; // 첫번째방
+
+  for (let i = 1; i < bookArr.length; ++i) {
+    const { start, end } = bookArr[i];
+    // 들어갈 수 있는 방이 없는 경우
+    if (start < canEnterTimes[0]) {
+      answer++; // 방추가
     }
-    
-    
-    
-    
-    return maxCnt;
+    // 들어갈 수 있는 방이 있는 경우
+    else {
+      canEnterTimes.shift(); // 이미 퇴실한 방 제거
+    }
+    canEnterTimes.push(end + 10); // (새로운 방이나 기존 방에) 현재 입실하는 방의 다음 입실가능시각 추가
+    canEnterTimes.sort((a, b) => a - b); // 가장 빠른 다음 입실시각 갱신
+  }
+  return answer;
 }
