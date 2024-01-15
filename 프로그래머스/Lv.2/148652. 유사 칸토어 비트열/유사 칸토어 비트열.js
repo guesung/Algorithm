@@ -1,27 +1,14 @@
 function solution(n, l, r) {
-  let result = 0;
-  let memo = new Array(r - l + 1).fill().map((_, idx) => idx + l);
-  
-    console.log(memo)
-  if (n === 1) {
-      return memo.filter(el => el !== 3).length;
-  }
-
-  while(memo.length) {
-    const newMemo = [];
-      
-    for (const el of memo) {
-      if (el === 1) result += 1;
-      else {
-        if (!!((el + 2) % 5)) { // 2를 더하고 5를 나눈 나머지가 0이 아니라면(1,2,3,4,5 중에 3만 제외)
-          const fixedEl = Math.ceil(el / 5);
-          newMemo.push(fixedEl);
-        }
-      }
+    var answer = 0;
+    
+//  1101111011000001101111011
+//     0 : 3,8,11-15,18,23.. 
+//     1차적인 값 : 5로 나누었을 때 나머지 = 3
+//     2차적인 값 : 11-15, : 5로 나누었을 때 5로 나누었을 때(Math.ceil) 나머지 = 3
+    let array = new Array(r-l+1).fill().map((_,i)=>i+l);
+    while(1){
+        array = array.filter(it => !(it%5===3)).map(it => Math.ceil(it/5));
+        if(array.every(it=>it===1)) break;
     }
-
-    memo = newMemo;
-  }
-  
-  return result;    
+    return array.length;
 }
