@@ -1,9 +1,10 @@
-function solution(w, h) {
-    let cnt = 0;
-    for(let i=0;i<w;i++){
-        const leftSideY = i * h / w;
-        const rightSideY = (i+1) * h / w;
-        cnt += (Math.ceil(rightSideY) - Math.floor(leftSideY))
+function solution(w,h){
+    const slope = h / w;
+    let result = 0;
+
+    for(let i = 1; i <= w; i++){
+        result += Math.ceil(slope * i);
     }
-    return h * w - cnt;
+
+    return ((h * w) - result) * 2;
 }
