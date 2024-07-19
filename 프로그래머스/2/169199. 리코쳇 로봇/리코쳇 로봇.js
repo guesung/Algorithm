@@ -1,63 +1,50 @@
 function solution(board) {
     var answer = 0;
-    board = board.map(items => items.split(''));
     
-    const q = [];
-    const n =board.length;     // 가로 길이
-    const m = board[0].length; // 세로 길이
-    const dx = [-1, 1, 0, 0];  // 상하좌우 방향
-    const dy = [0, 0, -1, 1];
+//     시작 위치에서 목표 위치까지 최소 몇 번만에 도달 할 수 있는가
+//     상/하/좌/우 -> 한 방향으로 부딪힐 때까지 미끄러진다.
+//     . : 빈공간 | R : 처음 위치 | D : 장애물의 위치 | G : 목표지점
+//     R -> G
     
-    board.forEach((items, i) => {
-        items.forEach((item, j) => {
-            if(item === 'R') q.push([i, j]);  // 시작 위치
-        });
-    });
-	
-    // 1) 시작 위치를 다시 방문하지 않게 'O' 표시
-    board[q[0][0]][q[0][1]] = 'O';   
+//     모든 경우의 수를 탐색해보아야 한다. 하지만, DFS로 정말 도느 경우의 술르 탐색하면 끝도 없을 것이다. 
+//     거꾸로 생각해서 G에서 출발한다해도, 결국 R로 가아하기에 의미가 없는 뒤집기이다.
     
-    // 2) q의 길이 만큼 반복
-    while(q.length) {
+//     1. 상하좌우를 순회한다.
+//     2. 이동할 수 있다면(장애물 없고, 끝이 아니고), 이동한다.
+//     2차원 배열을 만들어서, 각 요소를 도달한 최소 값을 구한다.
+//     만약, 현재 값이 더 큰 수라면, 해당 순회는 종료한다.
+    const directionArray = [[1,0],[0,1],[-1,0],[0,-1]]
     
-        // 3) 횟수(answer)를 카운트하기 위해 현재 q의 길이를 고정시킨다.
-        const size = q.length;
-        
-        // 4) 고정시킨 길이만큼 반복한다.
-        for(let i=0; i<size; i++) {
-            const [x, y] = q.shift();
-          
-            // 5) 상하좌우 한번씩 확인
-            for(let j=0; j<4; j++) {
-            
-                // 6) 다음 이동 위치
-                let nx = x + dx[j];
-                let ny = y + dy[j];
-                
-                // 7) 게임판 범위와 벽(D)를 만나지 않을 경우만 미끄러진다.
-                while(nx >= 0 && nx < n && ny >= 0 && ny < m && board[nx][ny] !== 'D') {
-                    nx += dx[j];
-                    ny += dy[j];
+    const [yLength,xLength] = [board.length,board[0].length];
+    const cntArr = Array.from(new Array(yLength),() => new Array(xLength).fill(Infinity))
+    const startPointY = board.findIndex(it => it.includes('R'));
+    const startPointX = board[startPointY].indexOf('R')
+    
+    const endPointY = board.findIndex(it => it.includes('G'));
+    const endPointX = board[endPointY].indexOf('G')
+    
+    dfs(startPointY,startPointX,0);
+    
+    function dfs(y,x,cnt){
+       if(cntArr[y][x] <= cnt){
+           return;
+       }
+        cntArr[y][x] = cnt;
+        for(const [directionY,directionX] of directionArray){
+            let afterMoveY = y;
+            let afterMoveX = x;
+            while(1){
+                afterMoveY += directionY;
+                afterMoveX += directionX;
+                if(afterMoveY < yLength && afterMoveY >= 0 && afterMoveX < xLength && afterMoveX >= 0 && board[afterMoveY][afterMoveX] !== 'D'){
+                    continue;
                 }
-                
-                // 8) 현재 위치로 변경한다.
-                nx -= dx[j];
-                ny -= dy[j];
-                
-                // 9) 현재 위치가 도착(G) 지점이면 횟수(answer)를 1증가 후 반환한다. 
-                if(board[nx][ny] === 'G') return answer+1;
-                
-                // 10) 한번이라도 방문한적이 없을 경우만
-                if(board[nx][ny] !== 'O') {
-                
-                    // 11) 방문 표시(O) 후 q에 담는다.
-                    board[nx][ny] = 'O';
-                    q.push([nx, ny]);
-                }
+                afterMoveY -= directionY;
+                afterMoveX -= directionX;
+                break;
             }
+            dfs(afterMoveY,afterMoveX,cnt+1);
         }
-        answer++;
     }
-    
-    return -1;
+    return cntArr[endPointY][endPointX] === Infinity ? -1 : cntArr[endPointY][endPointX];
 }
