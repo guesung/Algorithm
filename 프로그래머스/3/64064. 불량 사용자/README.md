@@ -1,14 +1,14 @@
 # [level 3] 불량 사용자 - 64064 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/64064#) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/64064) 
 
 ### 성능 요약
 
-메모리: 66.8 MB, 시간: 152.24 ms
+메모리: 68.1 MB, 시간: 200.45 ms
 
 ### 구분
 
- > 
+코딩테스트 연습 > 2019 카카오 개발자 겨울 인턴십
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 07월 31일 11:36:04
+2024년 08월 01일 20:53:34
 
 ### 문제 설명
 
